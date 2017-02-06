@@ -1,2 +1,1 @@
-# testRepo
-# testRepo
+Give Me Some Space is a bumper cars-style arena game where players have to knock out their oponent. The project is mainly for testing camera controls and optimizing analog stick controls on an icy terrain
