@@ -75,13 +75,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BallController.cs" />
-    <Compile Include="Assets\Scripts\Camera.cs" />
-    <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\CameraTest.cs" />
-    <Compile Include="Assets\Scripts\FallDetection.cs" />
-    <Compile Include="Assets\Scripts\Menu.cs" />
-    <Compile Include="Assets\Scripts\StageInteractions.cs" />
+    <Compile Include="Assets\Resources\Scripts\AutoFade.cs" />
+    <Compile Include="Assets\Resources\Scripts\BallController.cs" />
+    <Compile Include="Assets\Resources\Scripts\Camera.cs" />
+    <Compile Include="Assets\Resources\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Resources\Scripts\CameraTest.cs" />
+    <Compile Include="Assets\Resources\Scripts\FallDetection.cs" />
+    <Compile Include="Assets\Resources\Scripts\Menu.cs" />
+    <Compile Include="Assets\Resources\Scripts\MenuScript.cs" />
+    <Compile Include="Assets\Resources\Scripts\OnHighlighted.cs" />
+    <Compile Include="Assets\Resources\Scripts\PreviewController.cs" />
+    <Compile Include="Assets\Resources\Scripts\Push.cs" />
+    <Compile Include="Assets\Resources\Scripts\SceneBuilder.cs" />
+    <Compile Include="Assets\Resources\Scripts\StageInteractions.cs" />
+    <Compile Include="Assets\Resources\Scripts\TestManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI_Players.cs" />
+    <Compile Include="Assets\Resources\Scripts\characterSelector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Resources\Plane_No_zTest.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
