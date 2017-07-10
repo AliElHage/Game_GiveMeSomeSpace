@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    private BallController controlScript1, controlScript2;
+    private CharacterController controlScript1, controlScript2;
     private GameObject character1, character2, stage;
     private int camShot, counter;
     private bool stopCutscene, cancelWait, endOfWait, canStart;
     private GameObject[] sceneObjects;
+    public Canvas instructionCanvas, scoreCanvas, fightCanvas;
 
     void Awake()
     {
+        // GUI /////////////
+        scoreCanvas.enabled = false;
+        ////////////////////
+
         counter = 0;
         stopCutscene = false;
         cancelWait = false;
@@ -24,34 +29,13 @@ public class CameraController : MonoBehaviour {
         stage = GameObject.Find("stage");
         if (stage == null) Debug.Log("Dumbo");
         StartCoroutine(buffer(0.2F));
-        /*controlScript1 = character1.GetComponent<BallController>();
-        controlScript2 = character2.GetComponent<BallController>();
-        controlScript1.enabled = false;
-        controlScript2.enabled = false;
-        StartCoroutine(camMovement());
-        StartCoroutine(Interrupt());*/
+        
     }
 
     // Use this for initialization
     void Start()
     {
-        /*counter = 0;
-        stopCutscene = false;
-        cancelWait = false;
-        endOfWait = false;
-        camShot = 0;
-        character1 = GameObject.Find("character1");
-        if (character1 == null) Debug.Log("Dumbo");
-        character2 = GameObject.Find("character2");
-        stage = GameObject.Find("stage");
-        if (stage == null) Debug.Log("Dumbo");
-        controlScript1 = character1.GetComponent<BallController>();
-        controlScript2 = character2.GetComponent<BallController>();
-        controlScript1.enabled = false;
-        controlScript2.enabled = false;
-        StartCoroutine(camMovement());
-        StartCoroutine(Interrupt());
-        //controlScript.enabled = true;*/
+        
     }
 
     // Update is called once per frame
@@ -148,13 +132,21 @@ public class CameraController : MonoBehaviour {
         do
         {
             yield return null;
-        } while (!Input.GetKeyDown("space"));
+        } while (Input.GetAxisRaw("Push") < 0.5F && Input.GetAxisRaw("Push2") < 0.5F);
+        this.GetComponent<AudioSource>().Stop();
+        AudioClip song = Resources.Load<AudioClip>("Music/Circuit Theme - Mario Kart Double Dash!!");
+        this.GetComponent<AudioSource>().clip = song;
+        this.GetComponent<AudioSource>().Play();
         stopCutscene = true;
+        instructionCanvas.enabled = false;
+        scoreCanvas.enabled = true;
         camShot = 6;
         this.transform.position = new Vector3(0, 36, 0);
         this.transform.LookAt(new Vector3(0, 0, 0));
         this.transform.Rotate(new Vector3(0, 0, 90));
         controlScript1.enabled = true;
+        controlScript2.enabled = true;
+        StartCoroutine(fightAnim());
     }
 
     void cameraBehaviour()
@@ -212,12 +204,18 @@ public class CameraController : MonoBehaviour {
         } while (time < inTime);
         //character1.SetActive(true);
         //character2.SetActive(true);
-        controlScript1 = character1.GetComponent<BallController>();
-        controlScript2 = character2.GetComponent<BallController>();
+        controlScript1 = character1.GetComponent<CharacterController>();
+        controlScript2 = character2.GetComponent<CharacterController>();
         controlScript1.enabled = false;
         controlScript2.enabled = false;
         StartCoroutine(camMovement());
         StartCoroutine(Interrupt());
         canStart = true;
+    }
+
+    public IEnumerator fightAnim()
+    {
+        yield return new WaitForSeconds(0.5F);
+        fightCanvas.GetComponent<Animation>().Play();
     }
 }

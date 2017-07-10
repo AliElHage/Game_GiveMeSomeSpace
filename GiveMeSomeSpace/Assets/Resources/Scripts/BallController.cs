@@ -9,9 +9,10 @@ public class BallController : MonoBehaviour {
 	public int playerNumber = 0;
 
     private Rigidbody rig;
+    private Quaternion rotation;
     //private SphereCollider pushCol;
     private BoxCollider pushCol;
-
+    private float xRotation, yRotation, zRotation;
     private KeyCode[] controls = new KeyCode[6];
 
 	private bool pushing, recharging;
@@ -22,6 +23,10 @@ public class BallController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        
+        xRotation = this.transform.rotation.eulerAngles.x;
+        yRotation = this.transform.rotation.eulerAngles.y;
+        zRotation = this.transform.rotation.eulerAngles.z;
         //pushCol = transform.GetChild(1).GetComponent<SphereCollider>();
         //pushCol = transform.GetComponent<BoxCollider>();
         rig = GetComponent<Rigidbody>();
@@ -64,6 +69,7 @@ public class BallController : MonoBehaviour {
 			//pushCol.enabled = true;
 			pushing = true;
 			pushTimer = 0;
+            transform.GetComponent<Animation>().Play();
             //gameObject.GetComponent<SphereCollider>().radius += 1;
         }
 		else if (pushing)
@@ -90,11 +96,14 @@ public class BallController : MonoBehaviour {
 
 	void MovementInput()
 	{
-		Vector3 movement = Vector3.zero, rotation = Vector3.zero;
-
+		Vector3 movement = Vector3.zero;
 		movement += new Vector3(Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
-
+        this.transform.rotation = Quaternion.LookRotation(Vector3.up, movement);
 		rig.AddForce(movement.normalized * acceleration);
 		
 	}
+    public bool isPushing()
+    {
+        return pushing;
+    }
 }

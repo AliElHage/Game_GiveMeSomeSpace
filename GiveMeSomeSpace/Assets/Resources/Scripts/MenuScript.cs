@@ -11,7 +11,7 @@ public class MenuScript : MonoBehaviour {
     public GameObject settingsHelper, menuHelper, characterSelectHelper, stageSelectHelper, characterSelector, preview, preview2, spotLight, door, doorKey, stageSpawner, doorContainer, neon1, neon2;
     public Light powerLight;
     public GameObject otherCam;
-    private bool isMain, isSettings, isCharacterSelect, isStageSelect, isDone;
+    private bool isMain, isSettings, isCharacterSelect, isStageSelect, isDone, alreadyClicked;
     private GameObject stage;
     private AudioSource audioMusic;
     private string buttonName, path;
@@ -21,12 +21,14 @@ public class MenuScript : MonoBehaviour {
         setActiveScreen("main");
         StartCoroutine(goBack());
         isDone = false;
+        alreadyClicked = false;
         audioMusic = UnityEngine.Camera.main.GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if (Input.GetKey("escape"))
+            Application.Quit();
     }
 
     public void GoToSettings()
@@ -52,15 +54,16 @@ public class MenuScript : MonoBehaviour {
         buttonName = EventSystem.current.currentSelectedGameObject.name;
         if (buttonName.Equals("P1_TDE"))
         {
-            path = "Prefabs/ThomasSpaceEngine_BR";
+            //path = "Prefabs/ThomasSpaceEngine_BR";
+            path = "Prefabs/Character_TSE";
         }
         else if (buttonName.Equals("P1_Peekachew"))
         {
-            path = "Prefabs/Peekachew_BR";
+            path = "Prefabs/Character_Peekachew";
         }
         else if (buttonName.Equals("P1_CursedBlueper"))
         {
-            path = "Prefabs/CursedBlueper_BR";
+            path = "Prefabs/Character_Blueper";
         }
         PlayerPrefs.SetString("P1_character", path);
 
@@ -73,15 +76,16 @@ public class MenuScript : MonoBehaviour {
         buttonName = EventSystem.current.currentSelectedGameObject.name;
         if (buttonName.Equals("P2_TDE"))
         {
-            path = "Prefabs/ThomasSpaceEngine_BR";
+            //path = "Prefabs/ThomasSpaceEngine_BR";
+            path = "Prefabs/Character_TSE";
         }
         else if (buttonName.Equals("P2_Peekachew"))
         {
-            path = "Prefabs/Peekachew_BR";
+            path = "Prefabs/Character_Peekachew";
         }
         else if (buttonName.Equals("P2_CursedBlueper"))
         {
-            path = "Prefabs/CursedBlueper_BR";
+            path = "Prefabs/Character_Blueper";
         }
         PlayerPrefs.SetString("P2_character", path);
         StartCoroutine(RotateScreen(Vector3.up * 91.55F, 0.8F, stageSelectHelper.transform));
@@ -91,8 +95,12 @@ public class MenuScript : MonoBehaviour {
 
     public void openDoor()
     {
-        StartCoroutine(openDoorAnimation(Vector3.forward * 180, 1.5F));
-        isDone = true;
+        if (!alreadyClicked)
+        {
+            StartCoroutine(openDoorAnimation(Vector3.forward * 180, 1.5F));
+            isDone = true;
+        }
+        alreadyClicked = true;
     }
 
     public void ToggleAudio()
@@ -189,11 +197,6 @@ public class MenuScript : MonoBehaviour {
     {
         var fromAngle = doorKey.transform.rotation;
         var toAngle = Quaternion.Euler(doorKey.transform.eulerAngles + byAngles);
-        //for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
-        //{
-        //    doorKey.transform.rotation = Quaternion.Lerp(fromAngle, toAngle, t);
-        //    yield return null;
-        // }
 
         doorKey.GetComponent<Animation>().Play();
 
@@ -225,6 +228,7 @@ public class MenuScript : MonoBehaviour {
         }
 
         stage = Resources.Load<GameObject>("Prefabs/STAGE-1_TargetPlatform");
+        stage.transform.GetChild(6).gameObject.SetActive(false);
         Instantiate(stage, stageSpawner.transform.position, stageSpawner.transform.rotation, stageSpawner.transform);
 
         for (var t = 0f; t < 1; t += Time.deltaTime / 0.5F)

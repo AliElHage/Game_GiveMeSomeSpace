@@ -52,6 +52,9 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -67,6 +70,9 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Purchasing">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.VR">
       <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
     </Reference>
@@ -80,6 +86,7 @@
     <Compile Include="Assets\Resources\Scripts\Camera.cs" />
     <Compile Include="Assets\Resources\Scripts\CameraController.cs" />
     <Compile Include="Assets\Resources\Scripts\CameraTest.cs" />
+    <Compile Include="Assets\Resources\Scripts\CharacterController.cs" />
     <Compile Include="Assets\Resources\Scripts\FallDetection.cs" />
     <Compile Include="Assets\Resources\Scripts\Menu.cs" />
     <Compile Include="Assets\Resources\Scripts\MenuScript.cs" />
@@ -91,6 +98,7 @@
     <Compile Include="Assets\Resources\Scripts\TestManager.cs" />
     <Compile Include="Assets\Resources\Scripts\UI_Players.cs" />
     <Compile Include="Assets\Resources\Scripts\characterSelector.cs" />
+    <Compile Include="Assets\Resources\Scripts\characterTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Plane_No_zTest.shader" />
